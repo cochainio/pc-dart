@@ -193,3 +193,19 @@ class ECSignature implements Signature {
     return r.hashCode + s.hashCode;
   }
 }
+
+class ECSignatureV extends ECSignature {
+  final int v; // recover param
+
+  ECSignatureV(BigInt r, BigInt s, this.v) : super(r, s);
+
+  @override
+  String toString() => '(${r.toString()},${s.toString()},$v)';
+  @override
+  bool operator ==(other) {
+    if (other is! ECSignatureV) return false;
+    return other.r == r && other.s == s && other.v == v;
+  }
+  @override
+  int get hashCode => r.hashCode + s.hashCode + v.hashCode;
+}
